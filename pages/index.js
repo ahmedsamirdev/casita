@@ -9,24 +9,26 @@ const Map = dynamic(() => import("../components/Maps"), { ssr: false });
 
 function Index() {
   const [coord, setCoord] = useState([30.04442, 31.235712]);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState("It is very hot in, Cairo");
   const [sentiment, setSentiment] = useState("Neutrual");
+  
   return (
     <>
       <Head>
         <title>Select your city:</title>
       </Head>
       <div className={styles.page_container}>
-         <div className={styles.map}>
+        <div className={styles.map}>
           <Map coord={coord} message={message} sentiment={sentiment} />
         </div>
         <div className={styles.city}>
           <Cities
+            message={message}
             setCoord={setCoord}
             setMessage={setMessage}
             setSentiment={setSentiment}
           />
-        </div> 
+        </div>
       </div>
     </>
   );

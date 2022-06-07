@@ -3,23 +3,23 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import useSWR from "swr";
 
-function Cities({ setCoord, setSentiment, setMessage }) {
+const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+function Cities({ setCoord, setSentiment, message, setMessage }) {
+  
   const sentimentColor = [
     { marker: "/marker-red.png", sentiment: "Negative" },
     { marker: "/marker-green.png", sentiment: "Positive" },
     { marker: "/marker-blue.png", sentiment: "Neutrual" },
   ];
-  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  const { data, error } = useSWR(`/api/checker?q=${message}`, fetcher);
+  if (error) return <div>failed to load</div>;
+  if (!data) return <div>loading...</div>;
+
   return (
     <div className={styles.cities_container}>
       <h3>Select your city:</h3>
       {Entries.Entries.Entry.map((entry, index) => {
-        const { data, error } = useSWR(
-          `/api/checker?q=${entry.message}`,
-          fetcher
-        );
-        if (error) return <div key={index}>failed to load</div>;
-        if (!data) return <div key={index}>loading...</div>;
         return (
           <p
             // Use UUID instead of index as unique key
