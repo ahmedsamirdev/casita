@@ -3,33 +3,23 @@
     "Entry": [
       {
         "message": "It is very hot in, Cairo",
-        "sentiment": "Neutrual",
-        "lat": 30.044420,
-        "long": 31.235712
+        "sentiment": "Neutrual"
       },
       {
         "message": "There is new project started in, Nairobi",
-        "sentiment": "Positive",
-        "lat": -1.292066,
-        "long": 36.821945
+        "sentiment": "Positive"
       },
       {
         "message": "Dubai EXPO 2020 will create a new image for the middle, Dubai",
-        "sentiment": "Positive",
-        "lat": 25.267410,
-        "long": 55.292680
+        "sentiment": "Positive"
       },
       {
         "message": "I hate black people, there are so many of them in, New York",
-        "sentiment": "Negative",
-        "lat": 40.713050,
-        "long": -74.007230
+        "sentiment": "Negative"
       },
       {
         "message": "Do you COVID Vaccine, Jeddh, is good?",
-        "sentiment": "Negative",
-        "lat": 21.487301,
-        "long": 39.181339
+        "sentiment": "Negative"
       }
     ]
   }

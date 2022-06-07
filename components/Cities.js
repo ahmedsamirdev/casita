@@ -1,8 +1,9 @@
 import Entries from "../public/Entries.json";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import useSWR from "swr";
 
-function Cities({ setCoord }) {
+function Cities({ setCoord, setSentiment, setMessage }) {
   const sentimentColor = [
     { marker: "/marker-red.png", sentiment: "Negative" },
     { marker: "/marker-green.png", sentiment: "Positive" },
@@ -12,23 +13,39 @@ function Cities({ setCoord }) {
   return (
     <div className={styles.cities_container}>
       <h3>Select your city:</h3>
-      {Entries.Entries.Entry.map((entry) => (
-        <p
-          key={entry.message}
-          onClick={() => setCoord([entry.lat, entry.long])}
-          className={styles.card}
-        >
-          <span>{entry.message}</span>
-        </p>
-      ))}
+      {Entries.Entries.Entry.map((entry, index) => {
+        const fetcher = (...args) => fetch(...args).then((res) => res.json());
+        const { data, error } = useSWR(
+          `/api/checker?q=${entry.message}`,
+          fetcher
+        );
+        if (error) return <div key={index}>failed to load</div>;
+        if (!data) return <div key={index}>loading...</div>;
+        return (
+          <p
+            // Use UUID instead of index as unique key
+            key={index}
+            onClick={() => {
+              setMessage(entry.message);
+              setSentiment(entry.sentiment);
+              setCoord([data.lat, data.lon]);
+            }}
+            className={styles.card}
+          >
+            <span>
+              {index + 1}. {entry.message}
+            </span>
+          </p>
+        );
+      })}
       {/* Sentiment Color Guide */}
       <div className={styles.guide_container}>
         <details className={styles.details} open>
           <summary className={styles.pointer}>
             <strong>Sentiment Color Guide</strong>
           </summary>
-          {sentimentColor.map((color) => (
-            <li key={color.marker} className={styles.guide_block}>
+          {sentimentColor.map((color, index) => (
+            <li key={index} className={styles.guide_block}>
               <Image
                 alt="sentiment"
                 src={color.marker}
