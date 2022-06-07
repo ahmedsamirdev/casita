@@ -11,7 +11,7 @@ function Index() {
   const [coord, setCoord] = useState([30.04442, 31.235712]);
   const [message, setMessage] = useState("It is very hot in, Cairo");
   const [sentiment, setSentiment] = useState("Neutrual");
-  
+
   return (
     <>
       <Head>

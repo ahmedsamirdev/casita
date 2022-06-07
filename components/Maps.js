@@ -24,6 +24,7 @@ function Maps({ coord, message, sentiment }) {
     map.setView(coords, map.getZoom());
     return null;
   }
+
   return (
     <MapContainer
       className={styles.map_container}
