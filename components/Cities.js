@@ -9,12 +9,11 @@ function Cities({ setCoord, setSentiment, setMessage }) {
     { marker: "/marker-green.png", sentiment: "Positive" },
     { marker: "/marker-blue.png", sentiment: "Neutrual" },
   ];
-
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
   return (
     <div className={styles.cities_container}>
       <h3>Select your city:</h3>
       {Entries.Entries.Entry.map((entry, index) => {
-        const fetcher = (...args) => fetch(...args).then((res) => res.json());
         const { data, error } = useSWR(
           `/api/checker?q=${entry.message}`,
           fetcher
